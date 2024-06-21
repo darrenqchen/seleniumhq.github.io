@@ -32,7 +32,7 @@ jobs:
       - name: Checkout GitHub repo
         uses: actions/checkout@v4
       - name: Remove driver directories Windows
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows'
         run: |
           rm "$env:ChromeWebDriver" -r -v
           rm "$env:EdgeWebDriver" -r -v
@@ -55,7 +55,7 @@ jobs:
         with:
           edge-version: stable
       - name: Start Xvfb
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == ubuntu'
         run: Xvfb :99 &
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -74,7 +74,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Gems Nightly Windows
-        if: matrix.release == 'nightly' && matrix.os == 'windows-latest'
+        if: matrix.release == 'nightly' && matrix.os == 'windows'
         run: 
           |
           $latest_nightly_webdriver = ./scripts/latest-nightly-version.ps1 rubygems selenium-webdriver

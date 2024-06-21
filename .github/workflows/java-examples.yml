@@ -32,7 +32,7 @@ jobs:
     - name: Checkout GitHub repo
       uses: actions/checkout@v4
     - name: Remove driver directories Windows
-      if: matrix.os == 'windows-latest'
+      if: matrix.os == 'windows'
       run: |
         rm "$env:ChromeWebDriver" -r -v
         rm "$env:EdgeWebDriver" -r -v
@@ -55,7 +55,7 @@ jobs:
       with:
         edge-version: stable
     - name: Start Xvfb
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == ubuntu'
       run: Xvfb :99 &
     - name: Set up Java
       uses: actions/setup-java@v4
@@ -86,7 +86,7 @@ jobs:
           mvn -B -U test -Dselenium.version="$latest_snapshot"
 
     - name: Run Tests Nightly Windows
-      if: matrix.release == 'nightly' && matrix.os == 'windows-latest'
+      if: matrix.release == 'nightly' && matrix.os == 'windows'
       uses: nick-invision/retry@v3.0.0
       with:
         timeout_minutes: 20
