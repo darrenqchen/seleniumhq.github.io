@@ -55,7 +55,7 @@ jobs:
       with:
         edge-version: stable
     - name: Start Xvfb
-      if: matrix.os == ubuntu
+      if: matrix.os == 'ubuntu'
       run: Xvfb :99 &
     - name: Set up .Net Stable
       if: matrix.release == 'stable'
