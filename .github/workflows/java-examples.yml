@@ -38,7 +38,7 @@ jobs:
         rm "$env:EdgeWebDriver" -r -v
         rm "$env:GeckoWebDriver" -r -v
     - name: Remove driver directories Non-Windows
-      if: matrix.os != 'windows-latest'
+      if: matrix.os != 'windows'
       run: |
         sudo rm -rf $CHROMEWEBDRIVER $EDGEWEBDRIVER $GECKOWEBDRIVER
     - name: Setup Chrome
@@ -55,7 +55,7 @@ jobs:
       with:
         edge-version: stable
     - name: Start Xvfb
-      if: matrix.os == ubuntu'
+      if: matrix.os == ubuntu
       run: Xvfb :99 &
     - name: Set up Java
       uses: actions/setup-java@v4
@@ -72,7 +72,7 @@ jobs:
           cd examples/java
           mvn -B test
     - name: Run Tests Nightly Linux/macOS
-      if: matrix.release == 'nightly' && matrix.os != 'windows-latest'
+      if: matrix.release == 'nightly' && matrix.os != 'windows'
       uses: nick-invision/retry@v3.0.0
       with:
         timeout_minutes: 20

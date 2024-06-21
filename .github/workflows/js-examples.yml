@@ -42,7 +42,7 @@ jobs:
         edge-version: stable
       id: setup-edge
     - name: Install Firefox for set binary test
-      if: matrix.os != 'windows-latest'
+      if: matrix.os != 'windows'
       uses: browser-actions/setup-firefox@v1
       with:
         firefox-version: latest
@@ -60,7 +60,7 @@ jobs:
         echo "EDGE_BIN=/Users/runner/hostedtoolcache/msedge/stable/x64/Contents/MacOS/Microsoft Edge" >> "$GITHUB_ENV"
         echo "FF_BIN=/Users/runner/hostedtoolcache/firefox/latest/x64/Contents/MacOS/firefox" >> "$GITHUB_ENV"
     - name: Set ENV Linux
-      if: matrix.os == ubuntu'
+      if: matrix.os == ubuntu
       run: |
         echo "CHROME_BIN=${{ steps.setup-chrome.outputs.chrome-path }}" >> "$GITHUB_ENV"
         echo "EDGE_BIN=/opt/hostedtoolcache/msedge/stable/x64/msedge" >> "$GITHUB_ENV"
@@ -72,11 +72,11 @@ jobs:
         rm "$env:EdgeWebDriver" -r -v
         rm "$env:GeckoWebDriver" -r -v
     - name: Remove driver directories Non-Windows
-      if: matrix.os != 'windows-latest'
+      if: matrix.os != 'windows'
       run: |
             sudo rm -rf $CHROMEWEBDRIVER $EDGEWEBDRIVER $GECKOWEBDRIVER
     - name: Start Xvfb
-      if: matrix.os == ubuntu'
+      if: matrix.os == ubuntu
       run: Xvfb :99 &
     - name: Setup Node Stable
       if: matrix.release == 'stable'
@@ -90,7 +90,7 @@ jobs:
         node-version: '18.x'
         registry-url: 'https://npm.pkg.github.com'
     - name: Use Nightly package.json in Ubuntu/macOS
-      if: matrix.release == 'nightly' && matrix.os != 'windows-latest'
+      if: matrix.release == 'nightly' && matrix.os != 'windows'
       run:
         |
         latest_nightly=$(./scripts/latest-nightly-version.sh npm selenium-webdriver)
