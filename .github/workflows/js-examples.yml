@@ -21,13 +21,13 @@ env:
   GH_TOKEN: ${{ secrets.SELENIUM_CI_TOKEN }}
 
 jobs:
-  test_examples:
+  tests:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ ubuntu, windows, macos ]
         release: [ stable, nightly ]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ format('{0}-latest', inputs.os) }}
     steps:
     - name: Checkout GitHub repo
       uses: actions/checkout@v4
